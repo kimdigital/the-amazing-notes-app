@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "../hooks";
 import { addBlock, updateBlock } from "../slices/block-slice";
+import { transformIntoHTML } from "../helpers/block-helpers";
 
 type BlockListItemProps = {
   id: string;
@@ -15,7 +16,7 @@ export default function BlocksListItem({
 }: // parentId,
 BlockListItemProps) {
   const dispatch = useAppDispatch();
-  const [isFocused, setIsFocused] = React.useState(true);
+  const [isFocused, setIsFocused] = React.useState(false);
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key == "Enter") {
@@ -57,9 +58,14 @@ BlockListItemProps) {
       />
       <p
         style={{ display: isFocused ? "none" : "" }}
-        onClick={() => toggleIsFocused(true)}
+        onClick={(event) => {
+          if ((event.target as HTMLAnchorElement).tagName === "A") {
+            return;
+          }
+          toggleIsFocused(true);
+        }}
       >
-        {content}
+        {transformIntoHTML(content)}
       </p>
     </li>
   );
