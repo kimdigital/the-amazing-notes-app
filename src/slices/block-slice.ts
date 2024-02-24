@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { Block } from "../types";
-import { getNewBlock } from "../helpers/blockHelpers";
+import { getNewBlock } from "../helpers/block-helpers";
 
 export type BlockState = Block[];
 

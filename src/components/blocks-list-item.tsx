@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "../hooks";
-import { addBlock, updateBlock } from "../slices/blockSlice";
+import { addBlock, updateBlock } from "../slices/block-slice";
 
 type BlockListItemProps = {
   id: string;
