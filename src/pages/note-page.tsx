@@ -11,7 +11,7 @@ export default function NotePage() {
   const [isEditing, setIsEditing] = React.useState(false);
   const { noteId } = useParams();
   const note = useAppSelector((state) =>
-    state.note.find((f) => f.noteId === noteId)
+    state.notes.find((f) => f.noteId === noteId)
   );
 
   useEffect(() => {

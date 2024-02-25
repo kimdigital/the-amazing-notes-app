@@ -4,7 +4,7 @@ import { getNewBlock } from "./block-helpers";
 
 export function getNewNote(blocks?: Block[], title?: string): Note {
   if (!blocks?.length) {
-    blocks = [getNewBlock("Hello World!")];
+    blocks = [getNewBlock("")];
   }
 
   return {

@@ -1,12 +1,17 @@
 import { v4 as uuidv4 } from "uuid";
 import { useNavigateNote } from "../hooks/note-hooks";
 import { Link } from "@chakra-ui/react";
+import { Block } from "../types";
 
-export function getNewBlock(content: string, parentId?: string | null) {
+export function getNewBlock(
+  content: string,
+  parentBlockId?: string | null,
+): Block {
   return {
     blockId: uuidv4(),
     content,
-    parentBlockId: parentId || null,
+    parentBlockId: parentBlockId || null,
+    isLatest: true,
   };
 }
 

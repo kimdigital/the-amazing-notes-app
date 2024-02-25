@@ -1,3 +1,4 @@
+import { Flex } from "@chakra-ui/react";
 import { Note } from "../types";
 import BlocksList from "./blocks-list";
 
@@ -6,8 +7,8 @@ type NoteEditorProps = {
 };
 export default function NoteEditor({ note }: NoteEditorProps) {
   return (
-    <>
-      <BlocksList noteId={note?.noteId || ""} blocks={note?.blocks || []} />
-    </>
+    <Flex p={4}>
+      <BlocksList noteId={note?.noteId || ""} blocks={note?.blocks?.filter(f => !f.parentBlockId) || []} />
+    </Flex>
   );
 }

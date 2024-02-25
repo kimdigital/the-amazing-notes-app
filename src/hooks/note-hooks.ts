@@ -6,22 +6,22 @@ import { Note } from "../types";
 
 export function useGetNote() {
   const dispatch = useAppDispatch();
-  const notes = useAppSelector((state) => state.note);
+  const notes = useAppSelector((state) => state.notes);
 
   return function (noteId: string | null, title?: string): Note {
-    let matchingNote = null;
+    let note = null;
     if (noteId) {
-      matchingNote = notes.find((f) => f.noteId === noteId);
+      note = notes.find((f) => f.noteId === noteId);
     } else {
-      matchingNote = notes.find((f) => f.title === title);
+      note = notes.find((f) => f.title === title);
     }
 
-    if (!matchingNote && title) {
-      matchingNote = getNewNote([], title);
-      dispatch(addNote(matchingNote));
+    if (!note && title) {
+      note = getNewNote([], title);
+      dispatch(addNote(note));
     }
 
-    return matchingNote!;
+    return note!;
   };
 }
 

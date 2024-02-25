@@ -2,6 +2,7 @@ export type Block = {
   blockId: string;
   content: string;
   parentBlockId: string | null;
+  isLatest?: boolean;
 };
 
 export type Note = {

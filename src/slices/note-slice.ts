@@ -25,33 +25,36 @@ export const noteSlice = createSlice({
     ) {
       const noteId = action.payload.noteId || "";
       const blocks = action.payload.blocks || "";
-      const matchingNote = state.find((f) => f.noteId === noteId);
-      if (matchingNote) {
-        matchingNote.blocks = blocks;
+      const note = state.find((f) => f.noteId === noteId);
+      if (note) {
+        note.blocks = blocks;
       }
     },
     markNoteAsActive(state, action: PayloadAction<string | null>) {
       const noteId = action.payload || "";
-      const matchingNote = state.find((f) => f.noteId === noteId);
+      const note = state.find((f) => f.noteId === noteId);
 
       state.forEach((e) => (e.isActive = false));
 
-      if (matchingNote) {
-        matchingNote.isActive = true;
+      if (note) {
+        note.isActive = true;
       }
     },
     addNoteBlock(
       state,
       action: PayloadAction<{ noteId: string; block: Block | undefined }>
     ) {
-      const matchingNote = state.find(
+      const note = state.find(
         (f) => f.noteId === action.payload.noteId
       );
 
+      const blocks = note?.blocks;
+      blocks?.forEach((e) => (e.isLatest = false));
+
       if (action?.payload?.block) {
-        matchingNote?.blocks?.push(action.payload.block);
+        blocks?.push(action.payload.block);
       } else {
-        matchingNote?.blocks?.push(getNewBlock(""));
+        blocks?.push(getNewBlock(""));
       }
     },
     updateNoteBlockContent(
@@ -64,14 +67,14 @@ export const noteSlice = createSlice({
     ) {
       const noteId = action.payload.noteId || "";
       const blockId = action.payload.blockId || "";
-      const matchingNote = state.find((f) => f.noteId === noteId);
-      const matchingBlock = matchingNote?.blocks?.find(
+      const note = state.find((f) => f.noteId === noteId);
+      const block = note?.blocks?.find(
         (f) => f.blockId === blockId
       );
       const content = action.payload.content || "";
 
-      if (matchingBlock) {
-        matchingBlock.content = content;
+      if (block) {
+        block.content = content;
       }
     },
   },

@@ -3,7 +3,7 @@ import NoteCard from "../components/note-card";
 import { useAppSelector } from "../hooks";
 
 export default function NotesList() {
-  const notes = useAppSelector((state) => state.note);
+  const notes = useAppSelector((state) => state.notes);
   return (
     <>
       <Flex px={4} py={2} gap={4} direction="column">

@@ -1,3 +1,4 @@
+import { List } from "@chakra-ui/react";
 import { Block } from "../types";
 import BlocksListItem from "./blocks-list-item";
 
@@ -8,16 +9,17 @@ type BlockListProps = {
 
 export default function BlocksList({ noteId, blocks }: BlockListProps) {
   return (
-    <ul>
-      {blocks.map((m, i) => (
+    <List w="100%">
+      {blocks.map((m) => (
         <BlocksListItem
           key={m.blockId}
           blockId={m.blockId}
+          parentBlockId={m.parentBlockId}
           noteId={noteId}
           content={m.content}
-          isLastBlock={i === blocks.length - 1}
+          isLatest={m.isLatest}
         />
       ))}
-    </ul>
+    </List>
   );
 }
