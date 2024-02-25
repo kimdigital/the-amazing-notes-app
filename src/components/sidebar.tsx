@@ -13,11 +13,11 @@ export function Sidebar() {
       </Heading>
       {notes.map((m) => (
         <Button
-          key={m.id}
+          key={m.noteId}
           variant="ghost"
           bg={m.isActive ? "gray.200" : ""}
           size="sm"
-          onClick={() => navigateNote(m.id)}
+          onClick={() => navigateNote(m.noteId)}
         >
           {m.title}
         </Button>

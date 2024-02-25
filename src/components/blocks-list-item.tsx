@@ -1,45 +1,53 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "../hooks";
-import { addBlock, updateBlock } from "../slices/block-slice";
-import { transformIntoHTML } from "../helpers/block-helpers";
+import { useTransform } from "../helpers/block-helpers";
+import { addNoteBlock, updateNoteBlockContent } from "../slices/note-slice";
 
 type BlockListItemProps = {
-  id: string;
+  blockId: string;
+  noteId: string;
   content: string;
   isLastBlock?: boolean;
 };
 
 export default function BlocksListItem({
-  id,
+  blockId,
+  noteId,
   content,
   isLastBlock,
-}: // parentId,
-BlockListItemProps) {
+}: BlockListItemProps) {
   const dispatch = useAppDispatch();
+  const transform = useTransform();
   const [isFocused, setIsFocused] = React.useState(false);
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key == "Enter") {
-      dispatch(addBlock());
+      dispatch(addNoteBlock({ noteId, block: undefined }));
     }
   }
   function toggleIsFocused(value: boolean) {
     setIsFocused(value);
   }
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(updateBlock({ id, content: event.target.value || "" }));
+    dispatch(
+      updateNoteBlockContent({
+        noteId,
+        blockId,
+        content: event.target.value || "",
+      })
+    );
   }
 
   useEffect(() => {
     if (isFocused) {
-      const listItemEl = document?.getElementById(id);
+      const listItemEl = document?.getElementById(blockId);
       const inputEl = listItemEl?.getElementsByTagName("input")[0];
 
       if (inputEl) {
         inputEl.focus();
       }
     }
-  }, [isFocused, id]);
+  }, [isFocused, blockId]);
   useEffect(() => {
     if (isLastBlock) {
       setIsFocused(true);
@@ -47,7 +55,7 @@ BlockListItemProps) {
   }, [isLastBlock]);
 
   return (
-    <li id={id}>
+    <li id={blockId}>
       <input
         style={{ display: !isFocused ? "none" : "" }}
         value={content}
@@ -65,7 +73,7 @@ BlockListItemProps) {
           toggleIsFocused(true);
         }}
       >
-        {transformIntoHTML(content)}
+        {transform(content)}
       </p>
     </li>
   );

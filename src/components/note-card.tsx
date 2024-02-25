@@ -11,12 +11,12 @@ import { Block } from "../types";
 import { useNavigateNote } from "../hooks/note-hooks";
 
 type NoteCardProps = {
-  id: string;
+  noteId: string;
   title: string;
   blocks: Block[];
 };
 
-export default function NoteCard({ id, title, blocks }: NoteCardProps) {
+export default function NoteCard({ noteId, title, blocks }: NoteCardProps) {
   const navigateNote = useNavigateNote();
   return (
     <>
@@ -41,7 +41,7 @@ export default function NoteCard({ id, title, blocks }: NoteCardProps) {
             <Button
               variant="solid"
               colorScheme="blue"
-              onClick={() => navigateNote(id)}
+              onClick={() => navigateNote(noteId)}
             >
               Open
             </Button>

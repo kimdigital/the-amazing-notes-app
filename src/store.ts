@@ -1,10 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import blockReducer from "./slices/block-slice";
 import noteReducer from "./slices/note-slice";
 
 export const store = configureStore({
     reducer: {
-        block: blockReducer,
         note: noteReducer,
     },
 })

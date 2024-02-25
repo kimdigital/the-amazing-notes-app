@@ -10,13 +10,8 @@ export default function NotesList() {
         <Heading as="h1">Notes</Heading>
         <Grid templateColumns="repeat(4, 1fr)">
           {notes.map((m) => (
-            <GridItem>
-              <NoteCard
-                key={m.id}
-                id={m.id}
-                title={m.title}
-                blocks={m.blocks}
-              />
+            <GridItem key={m.noteId}>
+              <NoteCard noteId={m.noteId} title={m.title} blocks={m.blocks} />
             </GridItem>
           ))}
         </Grid>

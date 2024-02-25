@@ -1,13 +1,18 @@
 import React, { useEffect } from "react";
 import NoteEditor from "../components/note-editor";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { markNoteAsActive } from "../slices/note-slice";
+// import { useUpdateNoteBlocks } from "../hooks/note-hooks";
 
 export default function NotePage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  // const updateNoteBlocks = useUpdateNoteBlocks();
   const [isEditing, setIsEditing] = React.useState(false);
   const { noteId } = useParams();
+  const note = useAppSelector((state) =>
+    state.note.find((f) => f.noteId === noteId)
+  );
 
   useEffect(() => {
     setIsEditing(true);
@@ -16,11 +21,7 @@ export default function NotePage() {
     if (noteId) {
       dispatch(markNoteAsActive(noteId));
     }
+  }, [noteId]);
 
-    return () => {
-      dispatch(markNoteAsActive(null));
-    };
-  }, [noteId, dispatch]);
-
-  return <>{isEditing ? <NoteEditor /> : null}</>;
+  return <>{isEditing ? <NoteEditor note={note || null} /> : null}</>;
 }

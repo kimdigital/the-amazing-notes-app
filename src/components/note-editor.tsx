@@ -1,9 +1,13 @@
+import { Note } from "../types";
 import BlocksList from "./blocks-list";
 
-export default function NoteEditor() {
+type NoteEditorProps = {
+  note: Note | null;
+};
+export default function NoteEditor({ note }: NoteEditorProps) {
   return (
     <>
-      <BlocksList />
+      <BlocksList noteId={note?.noteId || ""} blocks={note?.blocks || []} />
     </>
   );
 }

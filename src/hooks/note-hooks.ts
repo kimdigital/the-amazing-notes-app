@@ -1,22 +1,48 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { getNewBlock } from "../helpers/block-helpers";
-import { setBlocks } from "../slices/block-slice";
+import { addNote } from "../slices/note-slice";
+import { getNewNote } from "../helpers/note-helpers";
+import { Note } from "../types";
 
-export function useNavigateNote() {
+export function useGetNote() {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const notes = useAppSelector((state) => state.note);
 
-  return function (id: string) {
-    let matchingBlocks = notes.find((f) => f.id === id)?.blocks || [];
-
-    if (matchingBlocks?.length === 0) {
-      matchingBlocks = [getNewBlock("Hello World!")];
+  return function (noteId: string | null, title?: string): Note {
+    let matchingNote = null;
+    if (noteId) {
+      matchingNote = notes.find((f) => f.noteId === noteId);
+    } else {
+      matchingNote = notes.find((f) => f.title === title);
     }
 
-    dispatch(setBlocks(matchingBlocks));
+    if (!matchingNote && title) {
+      matchingNote = getNewNote([], title);
+      dispatch(addNote(matchingNote));
+    }
 
-    navigate(`/notes/${id}`);
+    return matchingNote!;
+  };
+}
+
+export function useNavigateNote() {
+  const navigate = useNavigate();
+  const getNote = useGetNote();
+
+  return function (noteId: string | null, title?: string) {
+    if (!noteId && !title) {
+      console.error(
+        "useNavigateNote: Provide a valid noteId or title to navigate to a valid note."
+      );
+      return;
+    }
+
+    if (!noteId && title) {
+      noteId = getNote(null, title)?.noteId;
+    }
+
+    if (noteId) {
+      navigate(`/notes/${noteId}`);
+    }
   };
 }

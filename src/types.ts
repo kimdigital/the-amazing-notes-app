@@ -1,11 +1,11 @@
 export type Block = {
-  id: string;
+  blockId: string;
   content: string;
-  parentId: string | null;
+  parentBlockId: string | null;
 };
 
 export type Note = {
-  id: string;
+  noteId: string;
   title: string;
   blocks: Block[];
   isActive: boolean;
