@@ -12,7 +12,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
         minH="100vh"
         templateRows="repeat(2, 1fr)"
         templateColumns="repeat(5, 1fr)"
-        gap={4}
       >
         <GridItem rowSpan={2} colSpan={1}>
           <Sidebar />

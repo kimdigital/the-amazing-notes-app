@@ -11,5 +11,6 @@ export function getNewNote(blocks?: Block[]): Note {
     id: uuidv4(),
     title: "Untitled",
     blocks,
+    isActive: false,
   };
 }

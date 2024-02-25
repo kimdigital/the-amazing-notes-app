@@ -5,12 +5,15 @@ import { getNewBlock } from "../helpers/block-helpers";
 
 export type BlockState = Block[];
 
-const initialState: BlockState = [getNewBlock("Hello World!")];
+const initialState: BlockState = [];
 
 export const blockSlice = createSlice({
   name: "block",
   initialState,
   reducers: {
+    setBlocks(state, action: PayloadAction<Block[]>) {
+      state = action.payload;
+    },
     addBlock(state, action: PayloadAction<Block | undefined>) {
       if (action.payload) {
         state.push(action.payload);
@@ -30,6 +33,6 @@ export const blockSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addBlock, updateBlock } = blockSlice.actions;
+export const { setBlocks, addBlock, updateBlock } = blockSlice.actions;
 
 export default blockSlice.reducer;

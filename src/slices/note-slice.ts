@@ -18,7 +18,10 @@ export const noteSlice = createSlice({
         state.push(getNewNote());
       }
     },
-    updateNote(state, action: PayloadAction<{ id: string; blocks: Block[] }>) {
+    updateNoteBlocks(
+      state,
+      action: PayloadAction<{ id: string; blocks: Block[] }>
+    ) {
       const id = action.payload.id || "";
       const blocks = action.payload.blocks || "";
       const matchingNote = state.find((f) => f.id === id);
@@ -26,10 +29,21 @@ export const noteSlice = createSlice({
         matchingNote.blocks = blocks;
       }
     },
+    markNoteAsActive(state, action: PayloadAction<string | null>) {
+      const id = action.payload || "";
+      const matchingNote = state.find((f) => f.id === id);
+
+      state.forEach((e) => (e.isActive = false));
+      
+      if (matchingNote) {
+        matchingNote.isActive = true;
+      }
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addNote, updateNote } = noteSlice.actions;
+export const { addNote, updateNoteBlocks, markNoteAsActive } =
+  noteSlice.actions;
 
 export default noteSlice.reducer;

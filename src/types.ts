@@ -8,4 +8,5 @@ export type Note = {
   id: string;
   title: string;
   blocks: Block[];
+  isActive: boolean;
 };
