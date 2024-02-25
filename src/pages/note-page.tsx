@@ -21,7 +21,7 @@ export default function NotePage() {
     if (noteId) {
       dispatch(markNoteAsActive(noteId));
     }
-  }, [noteId]);
+  }, [noteId, dispatch]);
 
   return <>{isEditing ? <NoteEditor note={note || null} /> : null}</>;
 }
