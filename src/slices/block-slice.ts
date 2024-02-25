@@ -5,10 +5,10 @@ import { getNewBlock } from "../helpers/block-helpers";
 
 export type BlockState = Block[];
 
-const initialState: BlockState = [getNewBlock("Hello [[World]]!")];
+const initialState: BlockState = [getNewBlock("Hello World!")];
 
 export const blockSlice = createSlice({
-  name: "counter",
+  name: "block",
   initialState,
   reducers: {
     addBlock(state, action: PayloadAction<Block | undefined>) {

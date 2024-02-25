@@ -7,15 +7,18 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // Pages
 import HomePage from "./pages/home-page";
+import MainLayout from "./components/main-layout";
 
 export default function App() {
   return (
     <Provider store={store}>
       <ChakraProvider>
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-          </Routes>
+          <MainLayout>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+            </Routes>
+          </MainLayout>
         </BrowserRouter>
       </ChakraProvider>
     </Provider>
